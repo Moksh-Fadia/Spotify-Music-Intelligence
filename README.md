@@ -6,21 +6,7 @@ A multi-feature music ML web app built with **Streamlit**, using Spotify audio f
 
 ## Features
 
-### 1. Mood-Based Clustering
-
-Uses **KMeans** clustering with audio features like `valence`, `energy`, `danceability`, etc. to group songs into different **mood clusters**.
-
-- Automatically detects the optimal number of clusters using the **Elbow Method**
-- Assigns descriptive labels like `"Chill"`, `"High Energy"`, `"Sad"`, etc.
-- Visualized using scatter plots (valence vs energy) for interpretability
-
-#### Streamlit Dashboard
-
-![Dashboard1](streamlit_ss/spot_ss1.png)
-
----
-
-### 2. Content-Based Song Recommender
+### 1. Content-Based Song Recommender
 
 Given a song you like (track + artist), the system:
 
@@ -34,6 +20,22 @@ Given a song you like (track + artist), the system:
 #### Streamlit Dashboard
 
 ![Dashboard2](streamlit_ss/spot_ss2.png)  
+
+---
+
+### 2. Genre Prediction
+
+Performs genre prediction using **XGBoost** on 9 popular genres including:
+['alternative', 'ambient', 'chill', 'dubstep', 'edm', 'house', 'indie', 'pop', 'sad']
+
+Features:
+- Predicts the genre of a song from the dataset
+- Displays a full classification report
+- Displays 5-Fold Cross Validation scores (F1 Weighted)
+
+#### Streamlit Dashboard
+
+![Dashboard](streamlit_ss/ss4.png) 
 
 ---
 
@@ -56,16 +58,18 @@ A binary classifier trained using **Random Forest** to predict whether a song is
 
 ![Dashboard3](streamlit_ss/spot_ss3.png)  
 
----  
+---
 
-### 4. Genre Classification (Model Evaluation Only)
+### 4. Mood-Based Clustering
 
-Performs genre classification using **XGBoost** on 9 popular genres including:
-['alternative', 'ambient', 'chill', 'dubstep', 'edm', 'house', 'indie', 'pop', 'sad']
+Uses **KMeans** clustering with audio features like `valence`, `energy`, `danceability`, etc. to group songs into different **mood clusters**.
 
-- Reports:
-  - Classification report (precision, recall, F1)
-  - K-Fold cross-validation scores (F1 weighted)
+- The optimal number of clusters was determined during experimentation using the **Elbow Method**.
+- Assigns descriptive labels like `"Chill"`, `"High Energy"`, `"Sad"`, etc.
+
+#### Streamlit Dashboard
+
+![Dashboard1](streamlit_ss/spot_ss1.png)
 
 ---
 
