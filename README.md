@@ -1,6 +1,6 @@
 # Spotify Music Analytics & Recommendation System
 
-A multi-feature music ML web app built with **Streamlit**, using Spotify audio features. It includes **mood-based clustering**, a **content-based recommender**, **genre classification evaluation**, and **hit/flop prediction** — all integrated into an interactive dashboard.
+A multi-feature music ML web app built with **Streamlit**, using Spotify audio features. It includes **mood-based clustering**, a **content-based recommender**, **genre prediction**, and **hit/flop prediction** — all integrated into an interactive dashboard.
 
 ---
 
@@ -31,7 +31,7 @@ Performs genre prediction using **XGBoost** on 9 popular genres including:
 Features:
 - Predicts the genre of a song from the dataset
 - Displays a full classification report
-- Displays 5-Fold Cross Validation scores (F1 Weighted)
+- Displays the Macro-F1 score
 
 #### Streamlit Dashboard
 
@@ -46,6 +46,7 @@ A binary classifier trained using **Random Forest** to predict whether a song is
 - Includes:
   - Full classification report 
   - Probability of being a "Hit"
+  - ROC-AUC score
 
 #### Hit Guessing Feature
 - Enter a song name
@@ -64,7 +65,7 @@ A binary classifier trained using **Random Forest** to predict whether a song is
 
 Uses **KMeans** clustering with audio features like `valence`, `energy`, `danceability`, etc. to group songs into different **mood clusters**.
 
-- The optimal number of clusters was determined during experimentation using the **Elbow Method**.
+- The number of clusters was determined during experimentation using the **Elbow Method**.
 - Assigns descriptive labels like `"Chill"`, `"High Energy"`, `"Sad"`, etc.
 
 #### Streamlit Dashboard
