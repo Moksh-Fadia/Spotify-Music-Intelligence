@@ -187,29 +187,17 @@ elif section == "Mood Based Clustering":
 elif section == "Song Recommender":
     st.header("🎯 Song Recommender")
 
-
     @st.cache_data
     def prepare_recommender():
-        reco_df = spotify_df.copy()
-        reco_df = reco_df.drop_duplicates(subset=['track_name', 'artists']).reset_index(drop=True)
+        reco_df = pd.concat([pd.read_csv(p) for p in playlist_files.values()], ignore_index=True)
+        reco_df = reco_df.drop_duplicates(subset=['track_name', 'artists'], keep='first').reset_index(drop=True)
 
-        X_scaled = scale_features(reco_df, ['valence', 'energy', 'danceability', 'tempo', 'acousticness'])   
-        kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)   # n_clusters=4 means that the KMeans algorithm will group the songs into 4 distinct clusters based on their audio features. random_state=42 ensures reproducibility of the clustering results, and n_init=10 specifies that the algorithm will run 10 times with different initial centroids to find the best clustering solution 
-        reco_df['mood_cluster'] = kmeans.fit_predict(X_scaled)
-
-        mood_names = {
-            0: "High-Energy Electronic",
-            1: "Chill Indie",
-            2: "Slow Sad Acoustic",
-            3: "Danceable Pop Vibes"
-        }
-        reco_df['playlist_name'] = reco_df['mood_cluster'].map(mood_names)   # # This line creates a new column called 'playlist_name' in the cluster_df DataFrame. It maps the numeric mood cluster labels (0, 1, 2, 3) to their corresponding descriptive playlist names using the mood_names dictionary. For example, if a song is assigned to mood_cluster 0, it will be labeled as "High-Energy Electronic", which corresponds to the mood cluster 0.
-
-        features = ['valence', 'energy', 'danceability', 'tempo', 'acousticness', 'instrumentalness', 'liveness', 'loudness', 'speechiness']
-        reco_scaled = scale_features(reco_df, features)   # scaling the audio features listed in the features variable (valence, energy, danceability, tempo, acousticness) and stored in the reco_scaled variable as a NumPy array. This scaling is important for ensuring that all features contribute equally to the similarity calculations in the song recommender system.
-
+        features = ['valence', 'energy', 'danceability', 'tempo', 'acousticness',
+                'instrumentalness', 'liveness', 'loudness', 'speechiness',
+                'duration_ms', 'key', 'mode', 'time_signature']
+        
+        reco_scaled = scale_features(reco_df, features)
         return reco_df, reco_scaled
-
 
     reco_df, reco_scaled = prepare_recommender()
 
