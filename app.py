@@ -59,7 +59,8 @@ def train_genre_model(genre_df):
         objective='multi:softmax',     # multi-class classification problem where the model predicts the class with the highest probability 
         num_class=len(np.unique(y)),   # number of unique classes in the target variable (track_genre) to inform the model about the number of possible output classes
         eval_metric='mlogloss',    # mlogloss is a standard evaluation metric for multi-class classification. XGBoost uses it during training to measure prediction error
-        random_state=42
+        tree_method='hist',   # hist is a fast and memory-efficient tree construction algorithm that uses histogram-based techniques to speed up the training process, especially for large datasets, reduces cpu usage
+        n_jobs=1,   # n_jobs=1 means that the model will use only one CPU core for training which can help reduce memory usage 
     )
     
     xgb.fit(X_train, y_train)
